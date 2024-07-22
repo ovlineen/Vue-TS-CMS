@@ -1,7 +1,5 @@
 <template>
     <div class="main">
-        main
-        <button @click="handelQuitBtnClick">点击</button>
     </div>
 </template>
 

@@ -1,13 +1,27 @@
 <template>
-    <div class="pane-phone">
+    <section class="pane-phone">
         <el-form>
-            <el-form-item label="Activity form">
+            <el-form-item label="手机号">
                 <el-input />
             </el-form-item>
+            <el-form-item label="验证码">
+                <div class="verify">
+                    <el-input />
+                    <el-button class="verify-btn" type="primary">获取验证码</el-button>
+                </div>
+            </el-form-item>
         </el-form>
-    </div>
+    </section>
 </template>
 
 <script setup lang="ts"></script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.verify {
+    display: flex;
+
+    .verify-btn {
+        margin-left: 8px;
+    }
+}
+</style>
