@@ -1,5 +1,14 @@
 import { createPinia } from 'pinia'
+import useLoginStore from './login'
+import type { App } from 'vue'
 
 const pinia = createPinia()
 
-export default pinia
+function registerStore(app: App<Element>) {
+    app.use(pinia)
+
+    const loginStore = useLoginStore()
+    loginStore.loadLocalCacheAction()
+}
+
+export default registerStore

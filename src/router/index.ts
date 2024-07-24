@@ -1,4 +1,5 @@
 import { LOGIN_TOKEN } from '@/global/login'
+import { firstMenu } from '@/utils/map-menus'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 const router = createRouter({
@@ -30,6 +31,9 @@ router.beforeEach((to) => {
     const token = localStorage.getItem(LOGIN_TOKEN)
     if (to.path === '/main' && !token) {
         return '/login'
+    }
+    if (to.path === '/main') {
+        return firstMenu?.path
     }
 })
 

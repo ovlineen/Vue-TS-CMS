@@ -8,7 +8,9 @@
                 <el-header height="48px"
                     ><main-header @changeMenu="changeMenu"></main-header
                 ></el-header>
-                <el-main>Main</el-main>
+                <el-main>
+                    <router-view></router-view>
+                </el-main>
             </el-container>
         </el-container>
     </main>
@@ -18,7 +20,6 @@
 import { ref } from 'vue'
 import MainMenu from '@/components/main-menu/main-menu.vue'
 import MainHeader from '@/components/main-header/main-header.vue'
-
 
 const isMenu = ref(false)
 function changeMenu(isChange: boolean) {

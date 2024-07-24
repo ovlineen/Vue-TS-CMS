@@ -1,7 +1,7 @@
-const department = () => import('@/views/main/analysis/dashboard/department.vue')
+const dashboard = () => import('@/views/main/analysis/dashboard/dashboard.vue')
 export default {
   path: '/main/analysis/dashboard',
-  name: 'department',
-  component: department,
+  name: 'dashboard',
+  component: dashboard,
   children: []
 }

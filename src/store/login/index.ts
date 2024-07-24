@@ -2,6 +2,7 @@ import { LOGIN_TOKEN } from '@/global/login'
 import router from '@/router'
 import { accountLogin, getUserInfoById, getUserMenusByRoleId } from '@/services/modules/login'
 import type { IAccount } from '@/types'
+import { mapMenusToRoutes } from '@/utils/map-menus'
 import { defineStore } from 'pinia'
 
 interface IState {
@@ -13,13 +14,14 @@ interface IState {
 const useLoginStore = defineStore('login', {
     state: (): IState => ({
         token: localStorage.getItem(LOGIN_TOKEN) ?? '',
-        userInfo: JSON.parse(localStorage.getItem('userInfo') ?? '{}') ?? {},
-        userMenus: JSON.parse(localStorage.getItem('userMenu') ?? '[]') ?? []
+        userInfo: {},
+        userMenus: []
     }),
 
     actions: {
         async loginAccountAction(account: IAccount) {
             const res = await accountLogin(account)
+
             const id = res.data.id
             const name = res.data.name
             this.token = res.data.token
@@ -32,16 +34,33 @@ const useLoginStore = defineStore('login', {
             this.userInfo = userInfo
 
             const userMenusRes = await getUserMenusByRoleId(id)
-            const userMenu = userMenusRes.data
-            this.userMenus = userMenu
+            const userMenus = userMenusRes.data
+            this.userMenus = userMenus
 
             // 存储数据
 
-            localStorage.setItem('userInfo', JSON.stringify(userInfo))
-            localStorage.setItem('userMenu', JSON.stringify(userMenu))
+            if (userInfo) localStorage.setItem('userInfo', JSON.stringify(userInfo))
+            if (userMenus) localStorage.setItem('userMenus', JSON.stringify(userMenus))
 
-            // 调转操作
+            const routes = mapMenusToRoutes(userMenus)
+            routes.forEach((route) => router.addRoute('main', route))
+
+            // 跳转操作
             router.push('/main')
+        },
+
+        loadLocalCacheAction() {
+            const token = localStorage.getItem(LOGIN_TOKEN)
+            const userInfo = JSON.parse(localStorage.getItem('userInfo')!)
+            const userMenus = JSON.parse(localStorage.getItem('userMenus')!)
+
+            if (token && userInfo && userMenus) {
+                this.userInfo = userInfo
+                this.userMenus = userMenus
+
+                const routes = mapMenusToRoutes(userMenus)
+                routes.forEach((route) => router.addRoute('main', route))
+            }
         }
     }
 })

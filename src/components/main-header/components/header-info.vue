@@ -17,11 +17,10 @@
                 </span>
                 <template #dropdown>
                     <el-dropdown-menu>
-                        <el-dropdown-item :icon="Plus">Action 1</el-dropdown-item>
-                        <el-dropdown-item :icon="CirclePlusFilled"> Action 2 </el-dropdown-item>
-                        <el-dropdown-item :icon="CirclePlus">Action 3</el-dropdown-item>
-                        <el-dropdown-item :icon="Check">Action 4</el-dropdown-item>
-                        <el-dropdown-item :icon="CircleCheck">Action 5</el-dropdown-item>
+                        <el-dropdown-item>个人中心</el-dropdown-item>
+                        <el-dropdown-item>消息通知</el-dropdown-item>
+                        <el-dropdown-item>账号安全</el-dropdown-item>
+                        <el-dropdown-item @click="handelLogoutClick">退出登录</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
@@ -30,7 +29,15 @@
 </template>
 
 <script setup lang="ts">
-import { Check, CircleCheck, CirclePlus, CirclePlusFilled, Plus } from '@element-plus/icons-vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+function handelLogoutClick() {
+    localStorage.removeItem('token')
+    localStorage.removeItem('userInfo')
+    localStorage.removeItem('userMenu')
+    router.push('/login')
+}
 </script>
 
 <style lang="scss" scoped>
