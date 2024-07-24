@@ -13,8 +13,8 @@ interface IState {
 const useLoginStore = defineStore('login', {
     state: (): IState => ({
         token: localStorage.getItem(LOGIN_TOKEN) ?? '',
-        userInfo: {},
-        userMenus: {}
+        userInfo: JSON.parse(localStorage.getItem('userInfo') ?? '{}') ?? {},
+        userMenus: JSON.parse(localStorage.getItem('userMenu') ?? '[]') ?? []
     }),
 
     actions: {
@@ -24,15 +24,21 @@ const useLoginStore = defineStore('login', {
             const name = res.data.name
             this.token = res.data.token
 
-            // 保存 token
             localStorage.setItem(LOGIN_TOKEN, this.token)
 
             // 在跳转前查询用户信息，判断用户的权限
             const userInfoRes = await getUserInfoById(id)
-            this.userInfo = userInfoRes.data
+            const userInfo = userInfoRes.data
+            this.userInfo = userInfo
 
             const userMenusRes = await getUserMenusByRoleId(id)
-            this.userMenus = userMenusRes.data
+            const userMenu = userMenusRes.data
+            this.userMenus = userMenu
+
+            // 存储数据
+
+            localStorage.setItem('userInfo', JSON.stringify(userInfo))
+            localStorage.setItem('userMenu', JSON.stringify(userMenu))
 
             // 调转操作
             router.push('/main')
