@@ -4,9 +4,9 @@
             <component :is="isFold ? 'Expand' : 'Fold'"></component>
         </el-icon>
         <div class="content">
-            <div class="breadcrumb">面包屑</div>
+            <header-breadcrumb></header-breadcrumb>
             <div class="user-info">
-              <header-info></header-info>
+                <header-info></header-info>
             </div>
         </div>
     </div>
@@ -14,7 +14,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import HeaderInfo from './components/header-info.vue';
+import HeaderInfo from './components/header-info.vue'
+import HeaderBreadcrumb from './components/header-breadcrumb.vue'
 
 const isFold = ref(false)
 

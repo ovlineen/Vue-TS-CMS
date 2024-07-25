@@ -1,12 +1,13 @@
 <template>
   <div class="user">
-    <h2>user</h2>
+    <search></search>
+
   </div>
 </template>
 
-<script setup lang="ts" name="user"></script>
+<script setup lang="ts" name="user">
+import search from './components/search.vue'
+</script>
 
 <style scoped>
-.user {
-}
 </style>

@@ -1,3 +1,4 @@
+import router from '@/router'
 import type { RouteRecordRaw } from 'vue-router'
 
 function loadLocalRoutes() {
@@ -21,10 +22,46 @@ export function mapMenusToRoutes(userMenus: any[]) {
     for (const menu of userMenus) {
         for (const subMenu of menu.children) {
             const route = localRoutes.find((item) => item.path === subMenu.url)
-            if (route) routes.push(route)
-            if (firstMenu === null && route) firstMenu = route
+            if (route) {
+                if (!routes.find((item) => item.path === menu.url)) {
+                    routes.push({ path: menu.url, redirect: route })
+                }
+                routes.push(route)
+            }
+            if (!firstMenu && route) firstMenu = subMenu
         }
     }
 
     return routes
+}
+
+export function mapPathToMenu(path: string, userMenus: any[]) {
+    for (const menu of userMenus) {
+        for (const subMenu of menu.children) {
+            if (subMenu.url === path) {
+                return subMenu
+            }
+        }
+    }
+    return undefined
+}
+
+interface IBreadcrumbs {
+    name: string
+    path: string
+}
+
+export function mapPathToBreadcrumbs(path: string, userMenus: any[]) {
+    const breadcrumbs: IBreadcrumbs[] = []
+
+    for (const menu of userMenus) {
+        for (const subMenu of menu.children) {
+            if (subMenu.url === path) {
+                breadcrumbs.push({ name: menu.name, path: menu.url })
+                breadcrumbs.push({ name: subMenu.name, path: subMenu.url })
+            }
+        }
+    }
+
+    return breadcrumbs
 }

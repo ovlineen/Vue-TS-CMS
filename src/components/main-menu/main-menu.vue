@@ -9,7 +9,7 @@
 
         <section class="menu">
             <el-menu
-                default-active="2"
+                :default-active="defaultActive"
                 class="el-menu-vertical-demo"
                 background-color="#0c2135"
                 text-color="#b7bdc3"
@@ -22,10 +22,7 @@
                             <el-icon>
                                 <component :is="item.icon.split('-icon-')[1]"></component>
                             </el-icon>
-                            <h2
-                                class="title"
-                                :style="isFold ? 'display: none;' : 'display: block;'"
-                            >
+                            <h2 class="title" :style="isFold ? 'opacity: 0;' : 'opacity: 1;'">
                                 {{ item.name }}
                             </h2>
                         </template>
@@ -48,7 +45,9 @@
 
 <script setup lang="ts">
 import useLoginStore from '@/store/login'
-import { useRouter } from 'vue-router'
+import { firstMenu, mapPathToMenu } from '@/utils/map-menus'
+import { computed, ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 
 const loginStore = useLoginStore()
 const userMenus = loginStore.userMenus
@@ -66,10 +65,17 @@ function handelMenuItemClick(item: any) {
 
     router.push(url)
 }
+
+const route = useRoute()
+const defaultActive = computed(() => {
+    const pathMenu = mapPathToMenu(route.path, userMenus)
+    return pathMenu ? pathMenu?.id + '' : firstMenu?.id + ''
+})
 </script>
 
 <style lang="scss" scoped>
 .main-menu {
+    z-index: 11;
     height: 100%;
     background-color: #001529;
 
