@@ -48,7 +48,7 @@
 
         <div class="btn">
             <el-button icon="Refresh" @click="handelResetClick">重置</el-button>
-            <el-button icon="Search" type="primary">搜索</el-button>
+            <el-button icon="Search" @click="handelQuerySearch" type="primary">搜索</el-button>
         </div>
     </el-form>
 </template>
@@ -56,6 +56,7 @@
 <script setup lang="ts">
 import type { ElForm } from 'element-plus'
 import { reactive, ref } from 'vue'
+import usesystemStore from '@/store/main/system/'
 
 let searchFrom = reactive({
     name: '',
@@ -66,10 +67,21 @@ let searchFrom = reactive({
 })
 
 const fromRef = ref<InstanceType<typeof ElForm>>()
+const systemStore = usesystemStore()
 
 function handelResetClick() {
     fromRef.value?.resetFields()
+    systemStore.usersListDataAction()
+
+    emit('handelReset')
 }
+
+function handelQuerySearch() {
+    emit('handelQuerySearch', searchFrom)
+}
+
+const emit = defineEmits(['handelQuerySearch', 'handelReset'])
+defineExpose({ handelResetClick })
 </script>
 
 <style lang="scss" scoped>

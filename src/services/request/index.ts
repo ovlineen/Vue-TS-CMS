@@ -11,13 +11,13 @@ class LYRequest {
         this.instance.interceptors.request.use(
             (config) => {
                 // 全局请求成功拦截
-                console.log('全局请求成功拦截')
+                // console.log('全局请求成功拦截')
 
                 return config
             },
             (err) => {
                 // 全局请求失败拦截
-                console.log('全局请求失败拦截')
+                // console.log('全局请求失败拦截')
 
                 return err
             }
@@ -25,12 +25,12 @@ class LYRequest {
         // 全局响应拦截
         this.instance.interceptors.response.use(
             (res) => {
-                console.log('全局响应成功拦截')
+                // console.log('全局响应成功拦截')
 
                 return res.data
             },
             (err) => {
-                console.log('全局响应失败拦截')
+                // console.log('全局响应失败拦截')
                 return err
             }
         )
@@ -79,6 +79,13 @@ class LYRequest {
         return this.request({
             ...config,
             method: 'POST'
+        })
+    }
+
+    delete<T = any>(config: LYRequestConfig<T>) {
+        return this.request({
+            ...config,
+            method: 'Delete'
         })
     }
 }
