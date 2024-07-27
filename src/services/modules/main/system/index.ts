@@ -12,3 +12,17 @@ export function deleteUserData(id: number) {
         url: '/users/' + id
     })
 }
+
+export function postNewUserData(info: any) {
+    return lyRequest.post({
+        url: '/users',
+        data: info
+    })
+}
+
+export function patchEditUserData(id: number, userInfo: any) {
+    return lyRequest.patch({
+        url: '/users/' + id,
+        data: userInfo
+    })
+}

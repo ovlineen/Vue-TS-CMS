@@ -4,11 +4,12 @@ import { accountLogin, getUserInfoById, getUserMenusByRoleId } from '@/services/
 import type { IAccount } from '@/types'
 import { mapMenusToRoutes } from '@/utils/map-menus'
 import { defineStore } from 'pinia'
+import useMainStore from '../main/main'
 
 interface IState {
     token: string
     userInfo: any
-    userMenus: any
+    userMenus: any[]
 }
 
 const useLoginStore = defineStore('login', {
@@ -38,12 +39,14 @@ const useLoginStore = defineStore('login', {
             this.userMenus = userMenus
 
             // 存储数据
-
             if (userInfo) localStorage.setItem('userInfo', JSON.stringify(userInfo))
             if (userMenus) localStorage.setItem('userMenus', JSON.stringify(userMenus))
 
             const routes = mapMenusToRoutes(userMenus)
             routes.forEach((route) => router.addRoute('main', route))
+
+            const mianSotre = useMainStore()
+            mianSotre.fetchEntireDataAction()
 
             // 跳转操作
             router.push('/main')
@@ -60,6 +63,9 @@ const useLoginStore = defineStore('login', {
 
                 const routes = mapMenusToRoutes(userMenus)
                 routes.forEach((route) => router.addRoute('main', route))
+
+                const mianSotre = useMainStore()
+                mianSotre.fetchEntireDataAction()
             }
         }
     }

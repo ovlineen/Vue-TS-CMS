@@ -2,7 +2,9 @@
     <div class="content">
         <div class="header">
             <h2 class="title">员工列表</h2>
-            <el-button class="button" type="primary">创建员工</el-button>
+            <el-button class="button" type="primary" @click="handelCreateBtnClick"
+                >创建员工</el-button
+            >
         </div>
         <el-table :data="userList" border style="width: 100%">
             <el-table-column type="selection" align="center" />
@@ -29,8 +31,8 @@
             </el-table-column>
             <el-table-column align="center" width="150px">
                 <template #default="scope">
-                    <el-button size="small">编辑</el-button>
-                    <el-button size="small" @click="handelDelectBtnClck(scope.row.id)"
+                    <el-button @click="handelEditBtnClick(scope.row)" size="small">编辑</el-button>
+                    <el-button @click="handelDelectBtnClick(scope.row.id)" size="small"
                         >删除</el-button
                     >
                 </template>
@@ -80,11 +82,23 @@ function fetchUserListData(fromData = {}) {
     systemStore.usersListDataAction(queryInfo)
 }
 
+function handelDelectBtnClick(id: number) {
+    systemStore.deleteUserDataAction(id)
+    currentPage.value = 1
+    pagesize.value = 10
+}
+
+function handelEditBtnClick(itemData = {}) {
+    emit('clickEdit', itemData)
+}
+
 defineExpose({ fetchUserListData })
 
-function handelDelectBtnClck(id: number) {
-    systemStore.deleteUserDataAction(id)
+function handelCreateBtnClick() {
+    emit('changeModule')
 }
+
+const emit = defineEmits(['changeModule', 'clickEdit'])
 </script>
 
 <style lang="scss" scoped>

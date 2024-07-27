@@ -1,4 +1,3 @@
-import router from '@/router'
 import type { RouteRecordRaw } from 'vue-router'
 
 function loadLocalRoutes() {

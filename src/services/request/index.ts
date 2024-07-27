@@ -50,6 +50,7 @@ class LYRequest {
         // 单次请求拦截
         if (config.interceptors?.requestSuccessFn) {
             config = config.interceptors.requestSuccessFn(config as InternalAxiosRequestConfig)
+
         }
 
         return new Promise<T>((resolve, reject) => {
@@ -86,6 +87,12 @@ class LYRequest {
         return this.request({
             ...config,
             method: 'Delete'
+        })
+    }
+    patch<T = any>(config: LYRequestConfig<T>) {
+        return this.request({
+            ...config,
+            method: 'PATCH'
         })
     }
 }

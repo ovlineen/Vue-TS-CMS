@@ -1,4 +1,4 @@
-// 区分生产环境
+// 区分生产环境还是开发环境
 export let BASE_URL = ''
 if (import.meta.env.DEV) {
     BASE_URL = 'http://codercba.com:5000'
