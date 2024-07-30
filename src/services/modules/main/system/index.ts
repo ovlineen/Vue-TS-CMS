@@ -26,3 +26,30 @@ export function patchEditUserData(id: number, userInfo: any) {
         data: userInfo
     })
 }
+
+export function postPageListData(pathName: string, info: any) {
+    return lyRequest.post({
+        url: `/${pathName}/list`,
+        data: info
+    })
+}
+
+export function deletePageData(pathName: string, id: number) {
+    return lyRequest.delete({
+        url: `/${pathName}/${id}`
+    })
+}
+
+export function postNewPageData(pathName: string, info: any) {
+    return lyRequest.post({
+        url: `/${pathName}`,
+        data: info
+    })
+}
+
+export function patchEditPageData(pathName: string, id: number, userInfo: any) {
+    return lyRequest.patch({
+        url: `/${pathName}/${id}`,
+        data: userInfo
+    })
+}

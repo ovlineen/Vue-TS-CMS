@@ -1,28 +1,23 @@
 <template>
     <div class="department">
         <page-search
-            :search-config="searchConfig"
             @handel-query-search="handelQuerySearch"
             @handel-reset="handelReset"
         ></page-search>
         <page-content
-            :content-config="contentConfig"
             ref="contentRef"
             @change-module="changeModule"
             @click-edit="clickEdit"
         ></page-content>
-        <page-module ref="moduleRef" :module-config="moduleConfig"></page-module>
+        <page-module ref="moduleRef"></page-module>
     </div>
 </template>
 
 <script setup lang="ts" name="department">
 import { ref } from 'vue'
-import PageSearch from '@/components/page-search/page-search.vue'
-import PageContent from '@/components/page-content/page-content.vue'
-import PageModule from '@/components/page-module/page-module.vue'
-import searchConfig from './config/search.config'
-import contentConfig from './config/content.config'
-import moduleConfig from './config/module.config'
+import PageSearch from './components/page-search.vue'
+import PageContent from './components/page-content.vue'
+import PageModule from './components/page-module.vue'
 
 const contentRef = ref()
 function handelQuerySearch(searchFrom: any) {

@@ -17,7 +17,7 @@
 <script setup lang="ts" name="user">
 import { ref } from 'vue'
 import userSearch from './components/user-search.vue'
-import userContent from './components/user-cotent.vue'
+import userContent from './components/user-content.vue'
 import userModule from './components/user-module.vue'
 
 const contentRef = ref<InstanceType<typeof userContent>>()
