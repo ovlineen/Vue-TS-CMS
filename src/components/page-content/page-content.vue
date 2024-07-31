@@ -59,12 +59,11 @@ interface IProps {
             title: string
             btnTitle: string
         }
-        pageList: any[]
+        propsList: any[]
     }
 }
 
 const props = defineProps<IProps>()
-props.contentConfig.pageList.
 
 const currentPage = ref(1)
 const pagesize = ref(10)
