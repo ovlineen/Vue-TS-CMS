@@ -50,7 +50,7 @@ import usesystemStore from '@/store/main/system/'
 const props = defineProps<IProps>()
 
 const searchFrom = reactive<any>({})
-props.searchConfig.formItems.map((itme) => (searchFrom[itme.porp] = ''))
+props.searchConfig.formItems.map((item) => (searchFrom[item.porp] = ''))
 
 const fromRef = ref<InstanceType<typeof ElForm>>()
 const systemStore = usesystemStore()

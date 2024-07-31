@@ -11,7 +11,7 @@
                 <template v-if="item.type === 'timer'">
                     <el-table-column :prop="item.prop" :label="item.label" align="center">
                         <template #default="scope">
-                            {{ formatUTC(scope.row.createAt) }}
+                            {{ formatUTC(scope.row[item.prop]) }}
                         </template>
                     </el-table-column>
                 </template>
@@ -59,11 +59,12 @@ interface IProps {
             title: string
             btnTitle: string
         }
-        propsList: any[]
+        pageList: any[]
     }
 }
 
 const props = defineProps<IProps>()
+props.contentConfig.pageList.
 
 const currentPage = ref(1)
 const pagesize = ref(10)

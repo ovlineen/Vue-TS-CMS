@@ -3,7 +3,7 @@ const moduleConfig = {
         createTitle: '创建部门',
         editTitle: '编辑部门'
     },
-    pageList: [
+    fromItems: [
         {
             type: 'normal',
             label: '部门名称',

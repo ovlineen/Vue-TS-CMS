@@ -16,31 +16,17 @@
 </template>
 
 <script setup lang="ts" name="department">
-import { ref } from 'vue'
 import PageSearch from '@/components/page-search/page-search.vue'
 import PageContent from '@/components/page-content/page-content.vue'
 import PageModule from '@/components/page-module/page-module.vue'
 import searchConfig from './config/search.config'
 import contentConfig from './config/content.config'
 import moduleConfig from './config/module.config'
+import usePageContent from '@/hooks/usePageContent'
+import usePageModule from '@/hooks/usePageModule'
 
-const contentRef = ref()
-function handelQuerySearch(searchFrom: any) {
-    contentRef.value.fetchPageListData(searchFrom)
-}
-
-function handelReset() {
-    contentRef.value.fetchPageListData()
-}
-
-const moduleRef = ref()
-function changeModule() {
-    moduleRef.value.setModalVisble()
-}
-
-function clickEdit(itemData: any) {
-    moduleRef.value.setModalVisble(true, itemData)
-}
+const { handelQuerySearch, handelReset } = usePageContent()
+const { changeModule, clickEdit } = usePageModule()
 </script>
 
 <style scoped></style>

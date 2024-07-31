@@ -7,13 +7,15 @@
         center
     >
         <el-form v-model="fromData" size="large" label-width="80px">
-            <template v-for="item in moduleConfig.pageList" :key="item.prop">
-                <el-form-item :label="item.label" :prop="item.name">
-                    <el-input
-                        v-model="fromData[item.name]"
-                        :placeholder="item.placeholder"
-                    ></el-input>
-                </el-form-item>
+            <template v-for="item in moduleConfig.fromItems" :key="item.prop">
+                <template v-if="item.type === 'normal'">
+                    <el-form-item :label="item.label" :prop="item.name">
+                        <el-input
+                            v-model="fromData[item.prop]"
+                            :placeholder="item.placeholder"
+                        ></el-input>
+                    </el-form-item>
+                </template>
             </template>
 
             <el-form-item label="选择部门" prop="parentId">
@@ -55,18 +57,15 @@ interface IProps {
             createTitle: string
             editTitle: string
         }
-        pageList: any[]
+        fromItems: any[]
     }
 }
 
 const props = defineProps<IProps>()
 
-const fromData = reactive<any>({
-    name: '',
-    leader: '',
-    parentId: '',
-    departmentId: ''
-})
+const fromData = reactive<any>({})
+
+props.moduleConfig.fromItems.map((item) => (fromData[item.prop] = ''))
 
 function setModalVisble(isEdit = false, itemData?: any) {
     dialogVisible.value = true
