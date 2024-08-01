@@ -6,7 +6,7 @@
                 contentConfig.header.btnTitle
             }}</el-button>
         </div>
-        <el-table :data="pageList" border style="width: 100%">
+        <el-table :data="pageList" border style="width: 100%" row-key="id">
             <template v-for="item in contentConfig.propsList" :key="item.prop">
                 <template v-if="item.type === 'timer'">
                     <el-table-column :prop="item.prop" :label="item.label" align="center">
